@@ -39,7 +39,7 @@ async function submitForm() {
      if (data.status === 200) {
        result.style.backgroundColor = '#32ff0dc7';
        result.style.color = '#ffffff';
-       result.innerHTML = 'Submitted successfully!';
+       result.innerHTML = data.message;
        button.style.display = 'block';
        } else {
        result.style.backgroundColor = '#3D1619';

