@@ -7,7 +7,7 @@ const head = {
 module.exports = class AppRes {
   constructor(request) {}
   
-  async send(data, status = 200) {
+  send(data, status = 200) {
     new Response(data, {
       status,
       headers: {
@@ -15,9 +15,10 @@ module.exports = class AppRes {
         ...head,
       }
     });
+    return;
   }
   
-  async html(data, status = 200) {
+  html(data, status = 200) {
     new Response(data, {
       status,
       headers: {
@@ -25,9 +26,10 @@ module.exports = class AppRes {
         ...head,
       }
     });
+    return;
   }
   
-  async json(data, status = 200) {
+  json(data, status = 200) {
     new Response(JSON.stringify(data,null,2), {
       status,
       headers: {
@@ -35,9 +37,10 @@ module.exports = class AppRes {
         ...head,
       }
     });
+    return;
   }
   
-  async image(data, status = 200) {
+  image(data, status = 200) {
     new Response(data, {
       status,
       headers: {
@@ -45,9 +48,10 @@ module.exports = class AppRes {
         ...head,
       }
     });
+    return;
   }
   
-  async custom(data, headers, status = 200) {
+  custom(data, headers, status = 200) {
     new Response(data, {
       status,
       headers: {
@@ -55,5 +59,6 @@ module.exports = class AppRes {
         ...head,
       }
     });
+    return;
   }
 };
