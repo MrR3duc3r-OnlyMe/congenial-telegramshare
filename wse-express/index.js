@@ -28,7 +28,7 @@ module.exports = class App {
             return await route.callback(this.request, this.response)
         }
 
-        return this.response.send(request.url + " is not found", 404);
+        return this.response.send(`Cannot ${method} ${request.url.split("/").slice(1).join("/")}`, 404);
     }
 
     get(url, callback) {
@@ -70,6 +70,14 @@ module.exports = class App {
             callback
         })
     }
+    
+    options(url, callback) {
+      this.routes.push({
+        url: url,
+        method: 'OPTIONS',
+        callback
+      })
+    }
 
     any(url, callback) {
         this.routes.push({
@@ -78,6 +86,7 @@ module.exports = class App {
             callback
         })
     }
+    
 
     use(var1, var2) {
         if (arguments.length == 2) {
