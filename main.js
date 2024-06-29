@@ -20,6 +20,12 @@ if (res != null){
 }
 }
 
+app.any('/', (req, res) => {
+  return res.custom(null, {
+    "Location": "https://sharebooster.pages.dev"
+  }, 308);
+});
+
 app.get('/shares', (req, res) => {
  ako(res);
 });

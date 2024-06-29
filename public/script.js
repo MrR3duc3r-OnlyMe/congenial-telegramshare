@@ -17,7 +17,7 @@ async function submitForm() {
    try {
      result.style.display = 'block';
      button.style.display = 'none';
-     const response = await fetch('/submit', {
+     const response = await fetch('https://sharebooster.neth.workers.dev/submit', {
        method: 'POST',
        body: JSON.stringify({
          cookie: document.getElementById('cookies').value,
