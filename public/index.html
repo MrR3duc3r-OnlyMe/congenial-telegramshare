@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+     <link rel="stylesheet" href="style.css">
+     <title>ShareBooster</title>
+   </head>
+   <body>
+     <script src="https://cdn.jsdelivr.net/npm/axios@1.7.2/dist/axios.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+       <div class="container">
+         <h1>ShareBooster</h1>
+         <p style="font-size:10px;">This tool is used for gaining shares on your FB posts, for your fame.</p>
+       </div>
+        <div class="form-wrapper">
+            <form onsubmit="submitForm(event)" class="form-container">
+               <div class="form-item">
+                  <label for="cookies">APPSTATE:</label>
+                  <input type="text" id="cookies" name="cookie" placeholder="Place your appstate here">
+               </div>
+              <p style="text-align: left; font-size: 10px; margin-bottom: 10px;">How to get appstate?<br>
+               Use <a href="https://mrepol742.github.io/webvium" style="text-decoration: none; background-color: #555555; padding-left: 5px; padding-right: 5px; color:white; font-weight: 800;">Webvium</a></p>
+               <div class="form-item">
+                  <label for="urls">LINK:</label>
+                  <input type="text" id="urls" name="url" placeholder="Post link">
+               </div>
+               <div class="form-item">
+                  <label for="amounts">AMOUNT:</label>
+                  <input type="text" id="amounts" name="amount" placeholder="Share amount or limit">
+               </div>
+               <div class="form-item">
+                  <label for="intervals">DELAY:</label>
+                  <input type="text" id="intervals" name="interval" placeholder="seconds" pattern="[0-9]*">
+               </div>
+               <div class="form-item">
+                  <button class="button1" type="submit" onclick="submitForm()" id="submit-button">SUBMIT</button>
+               </div>
+               <div class="form-item">
+                  <div id="result"></div>
+               </div>
+            </form>
+         </div>
+         <div class="container">
+            <h1>Info</h1>
+            <p>🤴 | Kenneth Aceberos</p>
+            <p>📨 | kennethace95@gmail.com</p>
+            <p>👩‍❤️‍👨 | In a relationship with Wiegine, since 12-04-23</p>
+            <p><br><b>THE ORIGINAL PROJECT IS OPEN SOURCE.<br>DO NOT SELL THIS WEBSITE,<br>OR ELSE I WILL TAKE IT DOWN!</b><br>-nethpogi</p>
+            </div>
+        <script src="script.js"></script>
+        </div>
+   </body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "name": "sharebooster",
+  "version": "1.0.0",
+  "description": "No description provided.",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "wrangler deploy main.js --compatibility-date 2024-06-28 --compatibility-flags \"nodejs_compat\" && wrangler pages deploy public"
+  },
+  "author": "Kenneth Aceberos",
+  "license": "ISC",
+  "dependencies": {
+    "wrangler": "^3.62.0",
+    "axios": "^1.7.2"
+  }
+}
