@@ -43,9 +43,9 @@ module.exports = class AppReq {
     }
   }
  
- async method(name){
+ method(){
    try {
-     return this.request.method.toLowerCase();
+     return this.request.method;
    } catch (error){
      return null;
    }
