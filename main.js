@@ -23,7 +23,10 @@ app.get('/shares', (req, res) => {
  return res.json(data || []);
 });
 
-app.post('/submit', async (req, res) => {
+app.get('/submit', async (req, res) => {
+  if (req.header() === 'get'){
+    return res.send("You cannot GET this request. This uses POST.", 403);
+  }
   const {
     cookie,
     url,

@@ -42,4 +42,12 @@ module.exports = class AppReq {
       return {};
     }
   }
+ 
+ async method(name){
+   try {
+     return this.request.method.toLowerCase();
+   } catch (error){
+     return null;
+   }
+ }
 };

@@ -34,30 +34,6 @@ module.exports = class App {
     get(url, callback) {
         this.routes.push({
             url: url,
-            method: 'GET',
-            callback
-        })
-    }
-
-    post(url, callback) {
-        this.routes.push({
-            url: url,
-            method: 'OPTIONS',
-            // I set to options because of CORS policy...
-            callback
-        })
-    }
-    options(url, callback) {
-      this.routes.push({
-        url: url,
-        method: 'OPTIONS',
-        callback
-      })
-    }
-
-    any(url, callback) {
-        this.routes.push({
-            url: url,
             method: '*',
             callback
         })
