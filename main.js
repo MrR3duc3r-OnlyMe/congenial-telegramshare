@@ -47,7 +47,7 @@ app.get('/submit', async (req, res) => {
       });
     };
     await yello(cookies, url, amount, interval)
-    return res.json({
+    res.json({
       status: 200
     });
   } catch (err) {
