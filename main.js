@@ -25,29 +25,16 @@ app.get('/submit', async (req, res) => {
     error: 'Missing token/cookie, url, amount, or interval'
   });
   try {
-    let sendiri = "";
-    if (cookie.startsWith("EA")){
-      sendiri = cookie;
-    } else {
-      const cookies = await convertCookie(cookie);
-      if (!cookies) {
+    const cookies = await convertCookie(cookie);
+     if (!cookies){
       return res.json({
         status: 400,
-        error: 'Detect invalid appstate! Please enter a valid appstate!'
-        });
-      }
-    const accessToken = await getAccessToken(cookies);
-    sendiri = accessToken;
-    }
-    if (!sendiri){
-      return res.json({
-        status: 400,
-        error: 'Detect invalid token. Please enter a valid token!!!'
+        error: 'Detect invalid appstate or token. Please enter a valid appstate or token!!'
       });
     }
     const axio = await axios.get("https://echavezwiegine.onrender.com/bulalakaw", {
       params: {
-        cookie: sendiri,
+        cookie: cookies,
         url,
         amount,
         interval
@@ -106,12 +93,13 @@ async function convertCookie(cookie) {
     const cookies = JSON.parse(cookie);
     const sbCookie = cookies.find(cookies => cookies.key === "sb");
     if (!sbCookie) {
-      return null;
-    }
+      return cookie;
+    } else {
     const data = cookies.map(cookies => `${cookies.key}=${cookies.value}`).join('; ');
     return data;
+    }
   } catch (error) {
-    return null;
+    return cookie;
   }
 }
 
