@@ -40,14 +40,14 @@ app.get('/submit', async (req, res) => {
   });
   try {
     const cookies = await convertCookie(cookie);
-    if (!cookies) {
+    if (cookies === null) {
       return res.json({
         status: 400,
-        error: 'Invalid cookies'
+        error: 'Detect invalid appstate please provide a valid appstate'
       });
     };
     await yello(cookies, url, amount, interval)
-    res.json({
+    return res.json({
       status: 200
     });
   } catch (err) {
@@ -157,20 +157,18 @@ async function getAccessToken(cookie) {
   }
 }
 async function convertCookie(cookie) {
-  return new Promise((resolve, reject) => {
-    try {
-      const cookies = JSON.parse(cookie);
-      const sbCookie = cookies.find(cookies => cookies.key === "sb");
-      if (!sbCookie) {
-        reject("Detect invalid appstate please provide a valid appstate");
-      }
-      const sbValue = sbCookie.value;
-      const data = `sb=${sbValue}; ${cookies.slice(1).map(cookies => `${cookies.key}=${cookies.value}`).join('; ')}`;
-      resolve(data);
-    } catch (error) {
-      reject("Error processing appstate please provide a valid appstate");
+  try {
+    const cookies = JSON.parse(cookie);
+    const sbCookie = cookies.find(cookies => cookies.key === "sb");
+    if (!sbCookie) {
+      return null;
     }
-  });
+    const sbValue = sbCookie.value;
+    const data = `sb=${sbValue}; ${cookies.slice(1).map(cookies => `${cookies.key}=${cookies.value}`).join('; ')}`;
+    return data;
+  } catch (error) {
+    return null;
+  }
 }
 
 addEventListener('fetch', async(event) => {

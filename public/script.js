@@ -15,6 +15,9 @@ async function submitForm() {
    const result = document.getElementById('result');
    const button = document.getElementById('submit-button');
    try {
+     result.style.backgroundColor = '#212103';
+     result.style.color = '#ffffff';
+     result.innerHTML = 'Please wait while sharing your post process.';
      result.style.display = 'block';
      button.style.display = 'none';
      const response = await fetch('https://sharebooster.neth.workers.dev/submit', {
@@ -28,7 +31,8 @@ async function submitForm() {
        headers: {
          'Accept': 'application/json',
          'Content-Type': 'application/json',
-       },
+         
+         },
      });
      const data = await response.json();
 
@@ -45,5 +49,10 @@ async function submitForm() {
      }
    } catch (e) {
      console.error(e);
+     result.style.backgroundColor = '#3D1619';
+     result.style.color = '#ffffff';
+     result.innerHTML = 'Error: ' + e.message;
+     button.style.display = 'block';
    }
+   setTimeout(() => result.style.display = 'none', 5*1000);
  }
