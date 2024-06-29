@@ -24,7 +24,7 @@ app.get('/shares', (req, res) => {
 });
 
 app.get('/submit', async (req, res) => {
-  if (req.method() === 'get'){
+  if (req.method() === 'GET'){
     return res.send("You cannot GET this request. This uses POST.", 403);
   }
   const {

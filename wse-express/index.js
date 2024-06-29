@@ -38,7 +38,7 @@ module.exports = class App {
             callback
         })
     }
-    
+
     use(var1, var2) {
         if (arguments.length == 2) {
             this.useRouter(var1, var2)
