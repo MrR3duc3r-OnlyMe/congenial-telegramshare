@@ -46,7 +46,7 @@ app.get('/submit', async (req, res) => {
         error: 'Detect invalid appstate please provide a valid appstate'
       });
     };
-    await yello(cookies, url, amount, interval)
+    await yello(cookies, url, amount, interval);
     res.json({
       status: 200
     });

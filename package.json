@@ -10,6 +10,7 @@
   "author": "Kenneth Aceberos",
   "license": "ISC",
   "dependencies": {
+    "@types/node": "^18.0.6",
     "wrangler": "^3.62.0",
     "axios": "^1.7.2"
   }
