@@ -1,11 +1,12 @@
-module.exports = class AppRes {
-  constructor(request) {}
-  
-  head = {
+const head = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "GET, HEAD, POST, OPTIONS",
   "Access-Control-Allow-Headers": "Content-Type",
-  }
+}
+  
+module.exports = class AppRes {
+  constructor(request) {}
+  
   async send(data, status = 200) {
     return new Response(data, {
       status,
