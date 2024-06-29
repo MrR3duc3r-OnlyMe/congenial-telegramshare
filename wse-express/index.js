@@ -28,7 +28,7 @@ module.exports = class App {
             return await route.callback(this.request, this.response)
         }
 
-        return this.response.send({ status: 0, message: "Method not found!" }, 404)
+        return this.response.send(request.url + "is not found", 404);
     }
 
     get(url, callback) {
