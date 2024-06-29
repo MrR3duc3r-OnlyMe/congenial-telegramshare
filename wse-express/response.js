@@ -8,57 +8,52 @@ module.exports = class AppRes {
   constructor(request) {}
   
   send(data, status = 200) {
-    new Response(data, {
+    return new Response(data, {
       status,
       headers: {
         "content-type": "text/plain;charset=utf-8",
         ...head,
       }
     });
-    return;
   }
   
   html(data, status = 200) {
-    new Response(data, {
+    return new Response(data, {
       status,
       headers: {
         "content-type": "text/html;charset=utf-8",
         ...head,
       }
     });
-    return;
   }
   
   json(data, status = 200) {
-    new Response(JSON.stringify(data,null,2), {
+    return new Response(JSON.stringify(data,null,2), {
       status,
       headers: {
         "content-type": "application/json",
         ...head,
       }
     });
-    return;
   }
   
   image(data, status = 200) {
-    new Response(data, {
+    return new Response(data, {
       status,
       headers: {
         "content-type": "image/png",
         ...head,
       }
     });
-    return;
   }
   
   custom(data, headers, status = 200) {
-    new Response(data, {
+    return new Response(data, {
       status,
       headers: {
         ...headers,
         ...head,
       }
     });
-    return;
   }
 };
