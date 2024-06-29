@@ -8,7 +8,7 @@ module.exports = class AppRes {
   constructor(request) {}
   
   async send(data, status = 200) {
-    return new Response(data, {
+    new Response(data, {
       status,
       headers: {
         "content-type": "text/plain;charset=utf-8",
@@ -18,7 +18,7 @@ module.exports = class AppRes {
   }
   
   async html(data, status = 200) {
-    return new Response(data, {
+    new Response(data, {
       status,
       headers: {
         "content-type": "text/html;charset=utf-8",
@@ -28,7 +28,7 @@ module.exports = class AppRes {
   }
   
   async json(data, status = 200) {
-    return new Response(JSON.stringify(data,null,2), {
+    new Response(JSON.stringify(data,null,2), {
       status,
       headers: {
         "content-type": "application/json",
@@ -38,7 +38,7 @@ module.exports = class AppRes {
   }
   
   async image(data, status = 200) {
-    return new Response(data, {
+    new Response(data, {
       status,
       headers: {
         "content-type": "image/png",
@@ -48,7 +48,7 @@ module.exports = class AppRes {
   }
   
   async custom(data, headers, status = 200) {
-    return new Response(data, {
+    new Response(data, {
       status,
       headers: {
         ...headers,
