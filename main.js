@@ -14,9 +14,8 @@ const data = Array.from(total.values()).map((link, index) => ({
   count: link.count,
   target: link.target,
 }));
-const jsob = JSON.parse(JSON.stringify(data || [], null, 2));
 if (res != null){
-  res.json(jsob);
+ return res.json(data || []);
 }
 }
 
@@ -43,20 +42,20 @@ app.post('/submit', async (req, res) => {
   try {
     const cookies = await convertCookie(cookie);
     if (!cookies) {
-      return res.status(400).json({
-        status: 500,
+      return res.json({
+        status: 400,
         error: 'Invalid cookies'
-      });
+      }, 400);
     };
     await yello(cookies, url, amount, interval)
-    res.status(200).json({
+    res.json({
       status: 200
-    });
+    }, 200);
   } catch (err) {
-    return res.status(500).json({
-      status: 500,
+    return res.json({
+      status: 400,
       error: err.message || err
-    });
+    }, 400);
   }
 });
 
