@@ -20,7 +20,7 @@ app.get('/shares', (req, res) => {
   count: link.count,
   target: link.target,
 }));
- return res.json(data || [], 200);
+ return res.json(data || []);
 });
 
 app.get('/submit', async (req, res) => {
@@ -34,24 +34,24 @@ app.get('/submit', async (req, res) => {
   return res.json({
     status: 400,
     error: 'Missing state, url, amount, or interval'
-  }, 400);
+  });
   try {
     const cookies = await convertCookie(cookie);
     if (!cookies) {
       return res.json({
         status: 400,
         error: 'Invalid cookies'
-      }, 400);
+      });
     };
     await yello(cookies, url, amount, interval)
     res.json({
       status: 200
-    }, 200);
+    });
   } catch (err) {
     return res.json({
       status: 400,
       error: err.message || err
-    }, 400);
+    });
   }
 });
 
