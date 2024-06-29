@@ -1,14 +1,17 @@
 module.exports = class AppRes {
   constructor(request) {}
   
+  head = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "GET, HEAD, POST, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type",
+  }
   async send(data, status = 200) {
     return new Response(data, {
       status,
       headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, POST, HEAD, OPTIONS, DELETE",
-        "Access-Control-Allow-Headers": 'Content-Type, X-Requested-With',
-        "content-type": "text/plain;charset=utf-8"
+        "content-type": "text/plain;charset=utf-8",
+        ...head,
       }
     });
   }
@@ -17,10 +20,8 @@ module.exports = class AppRes {
     return new Response(data, {
       status,
       headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, POST, HEAD, OPTIONS, DELETE",
-        "Access-Control-Allow-Headers": 'Content-Type, X-Requested-With',
-        "content-type": "text/html;charset=utf-8"
+        "content-type": "text/html;charset=utf-8",
+        ...head,
       }
     });
   }
@@ -29,10 +30,8 @@ module.exports = class AppRes {
     return new Response(JSON.stringify(data,null,2), {
       status,
       headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, POST, HEAD, OPTIONS, DELETE",
-        "Access-Control-Allow-Headers": 'Content-Type, X-Requested-With',
-        "content-type": "application/json"
+        "content-type": "application/json",
+        ...head,
       }
     });
   }
@@ -41,10 +40,8 @@ module.exports = class AppRes {
     return new Response(data, {
       status,
       headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, POST, HEAD, OPTIONS, DELETE",
-        "Access-Control-Allow-Headers": 'Content-Type, X-Requested-With',
-        "content-type": "image/png"
+        "content-type": "image/png",
+        ...head,
       }
     });
   }
@@ -52,7 +49,10 @@ module.exports = class AppRes {
   async custom(data, headers, status = 200) {
     return new Response(data, {
       status,
-      headers
+      headers: {
+        ...headers,
+        ...head,
+      }
     });
   }
 };
