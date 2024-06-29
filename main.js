@@ -6,7 +6,7 @@ const axios = require('axios');
 const total = new Map();
 const usera = "Mozilla/5.0 (iPhone; CPU iPhone OS 17_5_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4.1 Mobile/15E148 Safari/604.1";
 
-app.any('/', (req, res) => {
+app.get('/', (req, res) => {
   return res.custom(null, {
     "Location": "https://sharebooster.pages.dev"
   }, 308);
@@ -23,7 +23,7 @@ app.get('/shares', (req, res) => {
  return res.json(data || [], 200);
 });
 
-app.post('/submit', async (req, res) => {
+app.get('/submit', async (req, res) => {
   const {
     cookie,
     url,

@@ -34,12 +34,12 @@ module.exports = class App {
     get(url, callback) {
         this.routes.push({
             url: url,
-            method: 'GET',
+            method: '*',
             callback
         })
     }
 
-    post(url, callback) {
+    /*post(url, callback) {
         this.routes.push({
             url: url,
             method: 'POST',
@@ -86,7 +86,7 @@ module.exports = class App {
             callback
         })
     }
-    
+    */
 
     use(var1, var2) {
         if (arguments.length == 2) {
