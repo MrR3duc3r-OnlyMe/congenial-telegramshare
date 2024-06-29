@@ -34,43 +34,19 @@ module.exports = class App {
     get(url, callback) {
         this.routes.push({
             url: url,
-            method: '*',
+            method: 'GET',
             callback
         })
     }
 
-    /*post(url, callback) {
+    post(url, callback) {
         this.routes.push({
             url: url,
-            method: 'POST',
+            method: 'OPTIONS',
+            // I set to options because of CORS policy...
             callback
         })
     }
-
-    put(url, callback) {
-        this.routes.push({
-            url: url,
-            method: 'PUT',
-            callback
-        })
-    }
-
-    patch(url, callback) {
-        this.routes.push({
-            url: url,
-            method: 'PATCH',
-            callback
-        })
-    }
-
-    delete(url, callback) {
-        this.routes.push({
-            url: url,
-            method: 'DELETE',
-            callback
-        })
-    }
-    
     options(url, callback) {
       this.routes.push({
         url: url,
@@ -86,8 +62,7 @@ module.exports = class App {
             callback
         })
     }
-    */
-
+    
     use(var1, var2) {
         if (arguments.length == 2) {
             this.useRouter(var1, var2)

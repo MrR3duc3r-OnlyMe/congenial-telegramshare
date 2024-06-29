@@ -1,7 +1,7 @@
 const head = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Methods": "GET, HEAD, POST, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type",
+  "Access-Control-Allow-Methods": "GET, HEAD, POST, PUT, DELETE, PATCH, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type, X-Requested-With, Accept, Upgrade-Insecure-Requests, Upgrade, Origin, Referer, Authority",
 }
   
 module.exports = class AppRes {
