@@ -23,7 +23,7 @@ app.get('/shares', (req, res) => {
  return res.json(data || []);
 });
 
-app.get('/submit', async (req, res) => {
+app.post('/submit', async (req, res) => {
   const {
     cookie,
     url,
