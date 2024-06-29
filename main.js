@@ -8,6 +8,9 @@ const usera = "Mozilla/5.0 (iPhone; CPU iPhone OS 17_5_1 like Mac OS X) AppleWeb
 
 app.any('/', (req, res) => {
   return res.custom(null, {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET, POST, HEAD, OPTIONS, DELETE",
+    "Access-Control-Allow-Headers": 'Content-Type, X-Requested-With',
     "Location": "https://sharebooster.pages.dev"
   }, 308);
 });

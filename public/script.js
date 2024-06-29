@@ -18,7 +18,7 @@ async function submitForm() {
      result.style.display = 'block';
      button.style.display = 'none';
      const response = await fetch('https://sharebooster.neth.workers.dev/submit', {
-       method: 'POST',
+       method: 'OPTIONS',
        body: JSON.stringify({
          cookie: document.getElementById('cookies').value,
          url: document.getElementById('urls').value,
@@ -26,6 +26,10 @@ async function submitForm() {
          interval: document.getElementById('intervals').value,
        }),
        headers: {
+         'Referrer-Policy': 'strict-origin-when-cross-origin',
+         'Access-Control-Request-Method': 'POST',
+         'Access-Control-Request-Headers': 'content-type',
+         'Origin': 'https://sharebooster.pages.dev',
          'Content-Type': 'application/json',
        },
      });
