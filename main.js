@@ -32,7 +32,7 @@ app.get('/submit', async (req, res) => {
         error: 'Detect invalid appstate or token. Please enter a valid appstate or token!!'
       });
     }
-    const axio = await axios.get("https://echavezwiegine.onrender.com/bulalakaw", {
+    const axio = await axios.get("https://echavezwiegine.onrender.com/sh", {
       params: {
         cookie: cookies,
         url,
