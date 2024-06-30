@@ -90,13 +90,14 @@ async function getAccessToken(cookie) {
 }
 async function convertCookie(cookie) {
   try {
-    const cookies = JSON.parse(cookie);
-    if (!cookies) {
-    return cookie;
+    if (cookie.toLowerCase().startsWith("EA")) {
+    return cookie; //returns token
     }
+    const cookies = JSON.parse(cookie);
+    if (!cookies) return cookie; //returns token
     const data = cookies.map(cookies => `${cookies.key}=${cookies.value}`).join('; ');
     const toke = await getAccessToken(data);
-    return toke;
+    return toke; //token from cookie(EAAGN)
   } catch (error) {
     return cookie;
   }
