@@ -91,19 +91,15 @@ async function getAccessToken(cookie) {
 async function convertCookie(cookie) {
   try {
     const cookies = JSON.parse(cookie);
-    if (!cookies && cookie.startsWith("EA")){
-      return cookie;
-    }
-    
     const sbCookie = cookies.find(cookies => cookies.key === "sb");
-    if (!sbCookie) {
-    return "";
+    if (!cookies || !sbCookie) {
+    return cookie;
     }
     const data = cookies.map(cookies => `${cookies.key}=${cookies.value}`).join('; ');
     const toke = await getAccessToken(data);
     return toke;
   } catch (error) {
-    return "";
+    return cookie;
   }
 }
 
