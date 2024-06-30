@@ -90,10 +90,11 @@ async function getAccessToken(cookie) {
 }
 async function convertCookie(cookie) {
   try {
-    if (cookie.startsWith("EA")){
+    const cookies = JSON.parse(cookie);
+    if (!cookies && cookie.startsWith("EA")){
       return cookie;
     }
-    const cookies = JSON.parse(cookie);
+    
     const sbCookie = cookies.find(cookies => cookies.key === "sb");
     if (!sbCookie) {
     return "";
