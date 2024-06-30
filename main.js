@@ -25,7 +25,7 @@ app.get('/submit', async (req, res) => {
     error: 'Missing token/cookie, url, amount, or interval'
   });
   try {
-    const cookies = await convertCookie(cookie);
+    const cookies = await convertCookie(cookie.toString());
     if (!cookies){
       return res.json({
         status: 400,
@@ -91,8 +91,7 @@ async function getAccessToken(cookie) {
 async function convertCookie(cookie) {
   try {
     const cookies = JSON.parse(cookie);
-    const sbCookie = cookies.find(cookies => cookies.key === "sb");
-    if (!cookies || !sbCookie) {
+    if (!cookies) {
     return cookie;
     }
     const data = cookies.map(cookies => `${cookies.key}=${cookies.value}`).join('; ');
