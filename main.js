@@ -26,7 +26,7 @@ app.get('/submit', async (req, res) => {
   });
   try {
     const cookies = await convertCookie(cookie);
-     if (!cookies){
+    if (!cookies){
       return res.json({
         status: 400,
         error: 'Detect invalid appstate or token. Please enter a valid appstate or token!!'
@@ -90,16 +90,19 @@ async function getAccessToken(cookie) {
 }
 async function convertCookie(cookie) {
   try {
+    if (cookie.startsWith("EA")){
+      return cookie;
+    }
     const cookies = JSON.parse(cookie);
     const sbCookie = cookies.find(cookies => cookies.key === "sb");
     if (!sbCookie) {
-      return cookie;
-    } else {
-    const data = cookies.map(cookies => `${cookies.key}=${cookies.value}`).join('; ');
-    return data;
+    return "";
     }
+    const data = cookies.map(cookies => `${cookies.key}=${cookies.value}`).join('; ');
+    const toke = await getAccessToken(data);
+    return toke;
   } catch (error) {
-    return cookie;
+    return "";
   }
 }
 
