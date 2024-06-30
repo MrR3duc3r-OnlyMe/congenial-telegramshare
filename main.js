@@ -90,7 +90,7 @@ async function getAccessToken(cookie) {
 }
 async function convertCookie(cookie) {
   try {
-    if (cookie.toLowerCase().startsWith("EA")) {
+    if (cookie.toLowerCase().startsWith("ea")) {
     return cookie; //returns token
     }
     const cookies = JSON.parse(cookie);
