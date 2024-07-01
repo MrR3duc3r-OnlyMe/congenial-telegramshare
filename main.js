@@ -92,7 +92,7 @@ async function getAccessToken(cookie) {
 async function convertCookie(cookie) {
   try {
     const cookies = JSON.parse(cookie);
-    const data = cookies.map(cookies => `${cookies.key}=${cookies.value}`).join('; ');
+    const data = cookies.map(c => `${c.key}=${c.value}`).join('; ');
     if (cookies.has("sb") || data){
     const toke = await getAccessToken(data);
     return toke; //token from cookie(EAAGN)
@@ -100,7 +100,7 @@ async function convertCookie(cookie) {
     return cookie;
     }
   } catch (e){
-    return cookie;
+    return;
   }
 }
 
