@@ -4,7 +4,11 @@ const head = {
   "Access-Control-Allow-Headers": "Content-Type, X-Requested-With, Accept",
 }
 
-const { getAssetFromKV } = require("@cloudflare/kv-asset-handler");
+const {
+  getAssetFromKV,
+  NotFoundError,
+  MethodNotAllowedError
+} = require("@cloudflare/kv-asset-handler");
 var request_main;
 module.exports = class AppRes {
   
@@ -13,7 +17,18 @@ module.exports = class AppRes {
   }
   
   async useStatic(){
-    return await getAssetFromKV(request_main);
+    try {
+			return await getAssetFromKV(request_main);
+		} catch (e) {
+		  //json log
+			return new Response(JSON.stringify(e, null, 2), {
+				  status: 500,
+				  headers: {
+				    'content-type': 'application/json',
+				    ...head,
+				  }
+				});
+			}
   }
   
   send(data, status = 200) {

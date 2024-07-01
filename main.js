@@ -8,7 +8,7 @@ app.get('/', (req, res) => {
   /*return res.custom(null, {
     "Location": "https://sharebooster.pages.dev"
   }, 308);*/
-  return res.useStatic();
+  return await res.useStatic();
 });
 
 
