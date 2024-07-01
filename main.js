@@ -103,5 +103,5 @@ async function convertCookie(cookie) {
 }
 
 addEventListener('fetch', async(event) => {
-  event.respondWith(app.handleRequest(event.request));
+  event.respondWith(app.handleRequest(event));
 });

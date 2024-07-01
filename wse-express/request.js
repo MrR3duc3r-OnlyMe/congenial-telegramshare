@@ -1,6 +1,6 @@
 module.exports = class AppReq {
-  constructor(request) {
-    this.request = request;
+  constructor(event) {
+    this.request = event.request;
     this.params = {};
   }
 

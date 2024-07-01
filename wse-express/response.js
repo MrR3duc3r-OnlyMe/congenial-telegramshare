@@ -9,16 +9,16 @@ const {
   NotFoundError,
   MethodNotAllowedError
 } = require("@cloudflare/kv-asset-handler");
-var request_main;
+
 module.exports = class AppRes {
   
-  constructor(request) {
-    request_main = request;
+  constructor(event) {
+    this.event = event;
   }
   
   async useStatic(){
     try {
-			return await getAssetFromKV(request_main);
+			return await getAssetFromKV(event);
 		} catch (e) {
 		  //json log
 			return new Response(JSON.stringify(e, null, 2), {

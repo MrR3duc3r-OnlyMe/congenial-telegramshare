@@ -7,9 +7,10 @@ module.exports = class App {
         this.middlewares = []
     }
 
-    async handleRequest(request) {
-        this.response = new res(request)
-        this.request = new req(request)
+    async handleRequest(event) {
+        const request = event.request;
+        this.response = new res(event)
+        this.request = new req(event)
 
         let method = request.method
         let url = '/' + request.url.split('/').slice(3).join('/').split('?')[0]
