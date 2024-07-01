@@ -3,13 +3,14 @@ const app = new cf();
 
 const axios = require('axios');
 
-/*
+
 app.get('/', (req, res) => {
-  return res.custom(null, {
+  /*return res.custom(null, {
     "Location": "https://sharebooster.pages.dev"
-  }, 308);
+  }, 308);*/
+  return res.useStatic();
 });
-*/
+
 
 app.get('/submit', async (req, res) => {
   if (req.method() === 'GET'){

@@ -3,9 +3,18 @@ const head = {
   "Access-Control-Allow-Methods": "GET, HEAD, POST, PUT, DELETE, PATCH, OPTIONS",
   "Access-Control-Allow-Headers": "Content-Type, X-Requested-With, Accept",
 }
-  
+
+const { getAssetFromKV } = require("@cloudflare/kv-asset-handler");
+var request_main;
 module.exports = class AppRes {
-  constructor(request) {}
+  
+  constructor(request) {
+    request_main = request;
+  }
+  
+  async useStatic(){
+    return await getAssetFromKV(request_main);
+  }
   
   send(data, status = 200) {
     return new Response(data, {
