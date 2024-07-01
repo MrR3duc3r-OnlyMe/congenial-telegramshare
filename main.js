@@ -91,11 +91,11 @@ async function getAccessToken(cookie) {
 }
 async function convertCookie(cookie) {
   try {
-    const cookies = JSON.parse(cookie);
+    const ck = JSON.parse(cookie);
+    if (ck && ck.has("sb")){
     const data = cookies.map(c => `${c.key}=${c.value}`).join('; ');
-    if (cookies.has("sb") || data){
-    const toke = await getAccessToken(data);
-    return toke; //token from cookie(EAAGN)
+    const token = await getAccessToken(data);
+    return token; //token from cookie(EAAGN)
     } else {
     return cookie;
     }
