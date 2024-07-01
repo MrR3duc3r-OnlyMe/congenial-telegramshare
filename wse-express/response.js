@@ -4,11 +4,11 @@ const head = {
   "Access-Control-Allow-Headers": "Content-Type, X-Requested-With, Accept",
 }
 
-const {
+import {
   getAssetFromKV,
   NotFoundError,
   MethodNotAllowedError
-} = require("@cloudflare/kv-asset-handler");
+} from "@cloudflare/kv-asset-handler";
 
 module.exports = class AppRes {
   
