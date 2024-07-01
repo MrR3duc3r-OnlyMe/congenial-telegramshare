@@ -4,7 +4,7 @@ const app = new cf();
 const axios = require('axios');
 
 
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
   /*return res.custom(null, {
     "Location": "https://sharebooster.pages.dev"
   }, 308);*/
