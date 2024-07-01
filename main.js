@@ -91,13 +91,16 @@ async function getAccessToken(cookie) {
 }
 async function convertCookie(cookie) {
   try {
+    /*if (cookie.startsWith("EAA")){
+      return cookie;
+    }*/
     const ck = JSON.parse(cookie);
     if (ck && ck.has("sb")){
-    const data = cookies.map(c => `${c.key}=${c.value}`).join('; ');
-    const token = await getAccessToken(data);
+    const ck1 = ck.map(c => `${c.key}=${c.value}`).join('; ');
+    const token = await getAccessToken(ck1);
     return token; //token from cookie(EAAGN)
     } else {
-    return cookie;
+      return cookie;
     }
   } catch (e){
     return;
