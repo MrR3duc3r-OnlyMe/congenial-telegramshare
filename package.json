@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "worker": "wrangler deploy main.js --name sharebooster --compatibility-date 2024-06-28 --compatibility-flags \"nodejs_compat\""
+    "worker": "wrangler deploy main.js --name sharebooster --site /public --compatibility-date 2024-06-28 --compatibility-flags \"nodejs_compat\""
   },
   "author": "Kenneth Aceberos",
   "license": "ISC",

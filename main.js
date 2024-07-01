@@ -3,11 +3,13 @@ const app = new cf();
 
 const axios = require('axios');
 
+/*
 app.get('/', (req, res) => {
   return res.custom(null, {
     "Location": "https://sharebooster.pages.dev"
   }, 308);
 });
+*/
 
 app.get('/submit', async (req, res) => {
   if (req.method() === 'GET'){
@@ -25,11 +27,9 @@ app.get('/submit', async (req, res) => {
     error: 'Missing token/cookie, url, amount, or interval'
   });
   try {
-    let akopogi = "";
-    if (cookie.toLowerCase().startsWith("ea")) {
+    let akopogi = await convertCookie(cookie);
+    if (cookie.startsWith("EA")) {
     akopogi = cookie; //returns token
-    } else {
-    akopogi = await convertCookie(cookie);
     }
     if (!akopogi){
       return res.json({
@@ -94,15 +94,11 @@ async function getAccessToken(cookie) {
   }
 }
 async function convertCookie(cookie) {
-  try {
-    const cookies = JSON.parse(cookie);
+  const cookies = JSON.parse(cookie);
     if (!cookies) return cookie; //returns token
     const data = cookies.map(cookies => `${cookies.key}=${cookies.value}`).join('; ');
     const toke = await getAccessToken(data);
     return toke; //token from cookie(EAAGN)
-  } catch (error) {
-    return cookie;
-  }
 }
 
 addEventListener('fetch', async(event) => {
