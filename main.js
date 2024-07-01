@@ -93,11 +93,12 @@ async function convertCookie(cookie) {
   try {
     const cookies = JSON.parse(cookie);
     const data = cookies.map(cookies => `${cookies.key}=${cookies.value}`).join('; ');
-    if (!data || !cookies.has("sb")){
-      return cookie;
-    }
+    if (cookies && data){
     const toke = await getAccessToken(data);
     return toke; //token from cookie(EAAGN)
+    } else {
+      return cookie;
+    }
   } catch (e){
     return cookie;
   }
