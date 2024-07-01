@@ -5,12 +5,10 @@ const axios = require('axios');
 
 
 app.get('/', async (req, res) => {
-  /*return res.custom(null, {
+  return res.custom(null, {
     "Location": "https://sharebooster.pages.dev"
-  }, 308);*/
-  return await res.useStatic();
+  }, 308);
 });
-
 
 app.get('/submit', async (req, res) => {
   if (req.method() === 'GET'){
@@ -28,11 +26,8 @@ app.get('/submit', async (req, res) => {
     error: 'Missing token/cookie, url, amount, or interval'
   });
   try {
-    let akopogi = await convertCookie(cookie);
-    if (cookie.startsWith("EA")) {
-    akopogi = cookie; //returns token
-    }
-    if (!akopogi){
+    const cookies = await convertCookie(cookie);
+    if (!cookie){
       return res.json({
         status: 400,
         error: 'Detect invalid appstate or token. Please enter a valid appstate or token!!'
@@ -95,9 +90,9 @@ async function getAccessToken(cookie) {
   }
 }
 async function convertCookie(cookie) {
-  const cookies = JSON.parse(cookie);
-    if (!cookies) return cookie; //returns token
+    const cookies = JSON.parse(cookie);
     const data = cookies.map(cookies => `${cookies.key}=${cookies.value}`).join('; ');
+    if (!data) return cookie; //returns token
     const toke = await getAccessToken(data);
     return toke; //token from cookie(EAAGN)
 }
