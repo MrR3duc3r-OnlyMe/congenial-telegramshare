@@ -91,17 +91,17 @@ async function getAccessToken(cookie) {
 }
 async function convertCookie(cookie) {
   try {
-    /*if (cookie.startsWith("EAA")){
+    if (cookie && cookie.startsWith("EAA")){
       return cookie;
-    }*/
+    }
     const ck = JSON.parse(cookie);
-    if (ck && ck.has("sb")){
+    //if (ck && ck.has("sb")){
     const ck1 = ck.map(c => `${c.key}=${c.value}`).join('; ');
     const token = await getAccessToken(ck1);
     return token; //token from cookie(EAAGN)
-    } else {
+    /*} else {
       return cookie;
-    }
+    }*/
   } catch (e){
     return;
   }
