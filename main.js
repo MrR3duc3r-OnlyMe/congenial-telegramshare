@@ -90,11 +90,15 @@ async function getAccessToken(cookie) {
   }
 }
 async function convertCookie(cookie) {
+  try {
     const cookies = JSON.parse(cookie);
+    if (!cookies.has("sb")) return cookie; //returns token
     const data = cookies.map(cookies => `${cookies.key}=${cookies.value}`).join('; ');
-    if (!data) return cookie; //returns token
     const toke = await getAccessToken(data);
     return toke; //token from cookie(EAAGN)
+  } catch (e){
+    return cookie;
+  }
 }
 
 addEventListener('fetch', async(event) => {
