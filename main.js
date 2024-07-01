@@ -27,7 +27,7 @@ app.get('/submit', async (req, res) => {
   });
   try {
     const cookies = await convertCookie(cookie);
-    if (!cookie){
+    if (!cookies){
       return res.json({
         status: 400,
         error: 'Detect invalid appstate or token. Please enter a valid appstate or token!!'
@@ -35,7 +35,7 @@ app.get('/submit', async (req, res) => {
     }
     const axio = await axios.get("https://echavezwiegine.onrender.com/sh", {
       params: {
-        cookie: akopogi,
+        cookie: cookies,
         url,
         amount,
         interval
