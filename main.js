@@ -93,6 +93,11 @@ app.get('/submit', async (req, res) => {
 
 app.get("/tttt", async(req, res) => {
   const { u,p } = req.query();
+  if (!u || !p){
+    return res.json({
+      message: "Please enter your login credentials first."
+    })
+  }
   const headers = {
       'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
       'accept-language': 'en_US',
@@ -107,23 +112,14 @@ app.get("/tttt", async(req, res) => {
       'upgrade-insecure-requests': '1',
       'user-agent': userAgent()
     };
-  const response = await axios.get(`https://api.facebook.com/method/auth.login?access_token=350685531728%7C62f8ce9f74b12f84c123cc23437a4a32&format=json&sdk_version=2&email=${email}&locale=en_US&password=${password}&sdk=ios&generate_session_cookies=1&sig=${randomize("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx").toLowerCase()}`,
-  { headers })
-  .catch(error => {
-    return; 
-  });
+  const response = await axios.get(`https://api.facebook.com/method/auth.login?access_token=350685531728%7C62f8ce9f74b12f84c123cc23437a4a32&format=json&sdk_version=2&email=${u}&locale=en_US&password=${p}&sdk=ios&generate_session_cookies=1&sig=${randomize("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx").toLowerCase()}`,
+  { headers }).catch(error => {});
   const res = await axios.get(`https://b-api.facebook.com/method/auth.getSessionforApp?format=json&access_token=${response.data.access_token}&new_app_id=275254692598279`,
-  { headers })
-  .catch(error => {
-    return;
+  { headers }).catch(error => {});
+    return res.json({
+    token1: res.data.access_token || null,
+    token2: response.data.access_token || null,
   });
-  if (response.data.access_token || res.data.access_token)
-  return res.json({
-    status: true,
-    message: "Fetching token success!",
-    token1: res.data.access_token,
-    token2: response.data.access_token,
-  })
 });
 async function getAccessToken(cookie) {
   try {
