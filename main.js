@@ -25,16 +25,15 @@ app.get('/submit', async (req, res) => {
     error: 'Missing token/cookie, url, amount, or interval'
   });
   try {
-    const cookies = (cookie.startsWith("EAA")) ? cookie : await convertCookie(cookie);
-    if (!cookies){
+    if (!cookie){
       return res.json({
         status: 400,
-        error: 'Detect invalid appstate or token. Please enter a valid appstate or token!!'
+        error: 'Detect invalid token. Please enter a valid token!!'
       });
     }
     const axio = await axios.get("https://echavezwiegine.onrender.com/sh", {
       params: {
-        cookie: cookies,
+        cookie,
         url,
         amount,
         interval
