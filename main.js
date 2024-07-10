@@ -22,7 +22,7 @@ app.get('/submit', async (req, res) => {
   if (!cookie || !url || !amount || !interval)
   return res.json({
     status: 400,
-    error: 'Missing token/cookie, url, amount, or interval'
+    error: 'Missing token, url, amount, or interval'
   });
   try {
     if (!cookie){
@@ -31,7 +31,7 @@ app.get('/submit', async (req, res) => {
         error: 'Detect invalid token. Please enter a valid token!!'
       });
     }
-    const axio = await axios.get("https://echavezwiegine.onrender.com/sh", {
+    const axio = await axios.get("https://nethwieapi.koyeb.app/sh", {
       params: {
         cookie,
         url,
@@ -57,6 +57,7 @@ app.get('/submit', async (req, res) => {
     });
   }
 });
+
 
 async function getAccessToken(cookie) {
   try {

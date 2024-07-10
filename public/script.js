@@ -3,8 +3,9 @@ function showResult(title, message, icon) {
     title: title,
     html: message,
     icon: icon,
+    background: "#141A25 url(dg.svg)",
   //  showCancelButton: true,
-    confirmButtonColor: "#0061ff",
+    confirmButtonColor: "#042970",
   // cancelButtonColor: "#d33",
     confirmButtonText: "Okay"
   });
@@ -13,13 +14,14 @@ function showResult(title, message, icon) {
 async function submitForm() {
    event.preventDefault();
    const result = document.getElementById('result');
+   const nigga = document.getElementById('nigga');
    const button = document.getElementById('submit-button');
    try {
      result.style.backgroundColor = '#212103';
      result.style.color = '#ffffff';
      result.innerHTML = 'Please wait while sharing your post process.';
-     result.style.display = 'block';
      button.style.display = 'none';
+     nigga.style.display = 'block';
      const response = await fetch('https://sharebooster.neth.workers.dev/submit', {
        method: 'POST',
        body: JSON.stringify({
@@ -37,22 +39,16 @@ async function submitForm() {
      const data = await response.json();
 
      if (data.status === 200) {
-       result.style.backgroundColor = '#32ff0dc7';
-       result.style.color = '#ffffff';
-       result.innerHTML = data.message;
+       showResult("Success", data.message, "success");
        button.style.display = 'block';
        } else {
-       result.style.backgroundColor = '#3D1619';
-       result.style.color = '#ffffff';
-       result.innerHTML = 'Error: ' + data.error;
+       showResult("Failed", data.error, "error");
        button.style.display = 'block';
      }
    } catch (e) {
      console.error(e);
-     result.style.backgroundColor = '#3D1619';
-     result.style.color = '#ffffff';
-     result.innerHTML = 'Error: ' + e.message;
+     showResult("Failed", e.message, "error");
      button.style.display = 'block';
    }
-   setTimeout(() => result.style.display = 'none', 5*1000);
+   nigga.style.display = 'none';
  }
