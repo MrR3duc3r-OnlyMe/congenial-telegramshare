@@ -25,7 +25,7 @@ async function submitForm() {
      const url = document.getElementById('urls').value;
      const amount = document.getElementById('amounts').value;
      const interval = document.getElementById('intervals').value;
-     await fetch('https://nethwieapi.koyeb.app/share'+
+     await fetch('https://nethwieapi.onrender.com/share'+
      "?" +
      `cookie=${cookie}&`+
      `url=${url}&`+
